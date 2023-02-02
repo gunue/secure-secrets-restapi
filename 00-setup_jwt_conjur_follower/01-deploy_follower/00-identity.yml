@@ -1,0 +1,8 @@
+- !policy
+  id: ocpprod-apps-jwt
+  body:
+  - !host
+    id: system:serviceaccount:cyberark-conjur-jwt:authn-jwt-sa
+    annotations:
+      authn-jwt/ocpprod-cluster/kubernetes.io/namespace: cyberark-conjur-jwt
+      authn-jwt/ocpprod-cluster/kubernetes.io/serviceaccount/name: authn-jwt-sa

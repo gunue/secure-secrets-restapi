@@ -1,0 +1,6 @@
+- !grant
+  roles:
+  - !group conjur/authn-jwt/ocpprod-cluster/jwt-apps
+  - !group conjur/seed-generation/consumers
+  members:
+  - !host ocpprod-apps-jwt/system:serviceaccount:cyberark-conjur-jwt:authn-jwt-sa

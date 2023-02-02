@@ -1,0 +1,5 @@
+- !grant
+  roles:
+  - !group conjur/authn-jwt/ocpprod-cluster/jwt-apps
+  members:
+  - !host ocpprod-apps-jwt/system:serviceaccount:conjur-jwt-rest-app:test-app-sa

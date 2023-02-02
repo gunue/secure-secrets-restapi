@@ -1,0 +1,4 @@
+- !grant
+  role: !group conjur/authn-jwt/ocpprod-cluster/operators
+  member: 
+  - !user admin

@@ -1,0 +1,18 @@
+---
+# This policy defines policy defines a group of whitelisted identities permitted to authenticate to the authn-jwt endpoint.
+- !policy
+  id: ocpprod-apps-jwt
+  annotations:
+    description: Identities permitted to authenticate
+  body:
+    - &hosts
+      - !host
+        id: system:serviceaccount:conjur-jwt-rest-app:test-app-sa
+        annotations:
+          authn-jwt/ocpprod-cluster/kubernetes.io/namespace: conjur-jwt-rest-app
+          authn-jwt/ocpprod-cluster/kubernetes.io/serviceaccount/name: test-app-sa
+
+          #      - !host
+          #        id: system:serviceaccount:{{ TEST_APP_NAMESPACE_NAME }}:another-test-app-sa
+          #        annotations:
+          #          authn-jwt/{{ AUTHENTICATOR_ID }}/sub: system:serviceaccount:{{ TEST_APP_NAMESPACE_NAME }}:another-test-app-sa

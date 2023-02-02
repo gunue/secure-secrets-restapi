@@ -1,0 +1,27 @@
+apiVersion: v1
+data:
+  authnK8sAuthenticatorID: ocpprod-cluster
+  authnK8sClusterRole: conjur-clusterrole
+  authnK8sNamespace: cyberark-conjur-jwt
+  authnK8sServiceAccount: conjur-serviceaccount
+  conjurAccount: swotest
+  conjurApplianceUrl: https://conjur-follower.cyberark-conjur-jwt.svc.cluster.local
+  conjurSslCertificate: |- 
+    <insert-conjurcert-here>
+kind: ConfigMap
+metadata:
+  annotations:
+    meta.helm.sh/release-name: cluster-prep
+    meta.helm.sh/release-namespace: cyberark-conjur-jwt
+  labels:
+    app.kubernetes.io/component: conjur-reference-config
+    app.kubernetes.io/instance: conjur-golden-configmap
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: conjur-golden-configmap
+    app.kubernetes.io/part-of: conjur-config
+    conjur.org/name: conjur-golden-configmap
+    helm.sh/chart: conjur-config-cluster-prep-0.1.3
+    heritage: Helm
+    release: cluster-prep
+  name: conjur-configmap
+  namespace: cyberark-conjur-jwt
