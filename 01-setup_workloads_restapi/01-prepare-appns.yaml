@@ -1,0 +1,7 @@
+helm install namespace-prep cyberark/conjur-config-namespace-prep \
+--create-namespace \
+--namespace conjur-jwt-rest-app \
+--set conjurConfigMap.authnMethod="authn-jwt" \
+--set authnK8s.goldenConfigMap="conjur-configmap" \
+--set authnK8s.namespace="cyberark-conjur-jwt" \
+--set authnRoleBinding.create="false"
