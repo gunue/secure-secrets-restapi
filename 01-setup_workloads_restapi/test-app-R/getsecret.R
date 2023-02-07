@@ -1,3 +1,4 @@
+#install.packages(c("httr", "Rcurl")) #"openssl"), repos = "https://cran.ncc.metu.edu.tr")
 library(httr)
 library(RCurl)
 #library(openssl)
@@ -28,8 +29,17 @@ conjuraccesstoken <- '/run/conjur/access-token'
       conjur.access.token <- read.delim(conjuraccesstoken, header = FALSE, sep = "")[[1]]
       conjur.access.token <- base64(conjur.access.token)
       
-## Retrieve Secrets with conjur access-token and print    
+## Retrieve secrets with Conjur access-token, print and sleep 5 sec 
 while (TRUE) {
+  
+  # Test access-token validity on dummy fetch
+  tokentest <- GET(url = follower_url, 
+                 path = secret0path, 
+                 add_headers("Authorization"=paste("Token token=", '"',conjur.access.token, '"', sep = "")))
+  statuscode <- tokentest$status_code
+  
+  # If authorized fetch secrets
+  if (statuscode==200) {
   
       secret0 <- GET(url = follower_url, 
                      path = secret0path, 
@@ -53,4 +63,11 @@ while (TRUE) {
       print(paste("Password is:",secret2))
 
       Sys.sleep(5)
+      }
+  # If unauthorized read access-token again.
+  else if (statuscode==401){
+    conjur.access.token <- read.delim(conjuraccesstoken, header = FALSE, sep = "")[[1]]
+    conjur.access.token <- base64(conjur.access.token)
+    }
+   
 }
