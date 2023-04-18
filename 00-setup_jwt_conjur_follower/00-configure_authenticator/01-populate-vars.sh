@@ -10,3 +10,5 @@ conjur -i variable set -i conjur/authn-jwt/ocpprod-cluster/token-app-property -v
 conjur -i variable set -i conjur/authn-jwt/ocpprod-cluster/identity-path -v ocpprod-apps-jwt
 #set audience
 conjur -i variable set -i conjur/authn-jwt/ocpprod-cluster/audience -v "https://c.swo.local"
+#Remove jwks.json
+rm -rf jwks.json

@@ -2,8 +2,9 @@ openssl s_client -showcerts -connect c.swo.local:443 < /dev/null 2> /dev/null | 
 CONJUR_SSL_CERTIFICATE=conjur.pem
 CONJUR_APPLIANCE_URL=https://c.swo.local
 AUTHENTICATOR_ID=ocpprod-cluster
-CONJUR_ACCOUNT=swotest
+CONJUR_ACCOUNT=swo-uat
 CONJUR_SEED_FILE_URL=$CONJUR_APPLIANCE_URL/configuration/$CONJUR_ACCOUNT/seed/follower
+oc create sa authn-jwt-sa
 oc create configmap follower-cm -n cyberark-conjur-jwt \
   -o yaml \
   --dry-run \

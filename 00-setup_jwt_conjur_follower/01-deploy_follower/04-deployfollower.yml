@@ -1,3 +1,17 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: conjur-follower
+  labels:
+    app: conjur-follower
+spec:
+  ports:
+  - port: 443
+    name: https
+  selector:
+    app: conjur-follower
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -17,9 +31,9 @@ spec:
       serviceAccountName: authn-jwt-sa
       containers:
       - name: conjur-appliance
-        image: registry.swo.local:5000/conjur/conjur-appliance:12.6.0
+        image: harbor.swo.local/conjur/conjur-appliance:12.9.0
         command: ["/tmp/seedfile/start-follower.sh"]
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         env:
           - name: SEEDFILE_DIR
             value: /tmp/seedfile
@@ -41,8 +55,8 @@ spec:
             readOnly: true
       initContainers:
       - name: authenticator
-        image: registry.swo.local:5000/cyberark/dap-seedfetcher:latest
-        imagePullPolicy: Always
+        image: harbor.swo.local/conjur/dap-seedfetcher:latest
+        imagePullPolicy: IfNotPresent
         env:
           - name: MY_POD_NAMESPACE
             valueFrom:
